@@ -1,0 +1,4 @@
+"0","knitr::opts_chunk$set(echo = TRUE)"
+"0","devtools::load_all()"
+"2","Error: Could not find package root.
+"
