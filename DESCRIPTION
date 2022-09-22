@@ -6,6 +6,7 @@ Authors@R: c(
   person("Little", "Beannie", role = "aut"))
 Description: Calculate monthly cost of buying a house.
 URL: https://github.com/LittleBeannie/BuyAHouse,
+    https://littlebeannie.github.io/BuyAHouse/
 Encoding: UTF-8
 VignetteBuilder: knitr
 Imports:

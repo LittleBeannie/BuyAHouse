@@ -1,4 +1,55 @@
-url: ~
+url: https://littlebeannie.github.io/BuyAHouse/
 template:
   bootstrap: 5
 
+template:
+  bootstrap: 5
+  bslib:
+    primary: '#72A0C1'
+    navbar-light-brand-color: '#fff'
+    navbar-light-brand-hover-color: '#fff'
+    navbar-light-color: '#fff'
+    navbar-light-hover-color: '#fff'
+    navbar-light-active-color: '#fff'
+    dropdown-link-hover-color: '#fff'
+    dropdown-link-hover-bg: '#7CB9E8'
+
+footer:
+  structure:
+    left:
+    - developed_by
+    - built_with
+    - legal
+    right: blank
+  components:
+    legal: <br>Copyright &copy; BigPotato and LittleBeannie.
+      All rights reserved.
+    blank: <span></span>
+
+navbar:
+  left:
+  - text: Home
+    href: index.html
+  - text: Reference
+    href: reference/index.html
+  - text: Articles
+    href: articles/index.html
+
+reference:
+- title: Functions to calcuate the monthly loan.
+  desc: >
+    calcuate the monthly loan.
+  contents:
+    - repayment
+- title: Functions to calcuate the monthly cost of a house.
+  desc: >
+    calcuate the monthly cost of a house
+  contents: 
+  - monthly_cost
+ 
+articles:
+- title: "Examples"
+  navbar: ~
+  contents: 
+  - examples
+  
