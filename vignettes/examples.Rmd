@@ -8,7 +8,7 @@ output: html_document
 ```{r}
 library(dplyr)
 library(gt)
-devtools::load_all()
+library(BuyAHouse)
 ```
 
 ## Example 1
