@@ -1,2 +1,2 @@
-# buy_a_house
+# BuyAHouse
 Calculate the monthly cost of a house.
