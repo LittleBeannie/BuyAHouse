@@ -1,9 +1,6 @@
 url: https://littlebeannie.github.io/BuyAHouse/
 template:
   bootstrap: 5
-
-template:
-  bootstrap: 5
   bslib:
     primary: '#72A0C1'
     navbar-light-brand-color: '#fff'
