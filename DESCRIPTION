@@ -13,7 +13,7 @@ Imports:
   dplyr
 Suggests:
   ggplot2,
-  gt，
+  gt,
   devtools
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
