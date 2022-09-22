@@ -9,7 +9,7 @@ template:
     navbar-light-hover-color: '#fff'
     navbar-light-active-color: '#fff'
     dropdown-link-hover-color: '#fff'
-    dropdown-link-hover-bg: '#7CB9E8'
+    dropdown-link-hover-bg: '#72A0C1'
 
 footer:
   structure:
