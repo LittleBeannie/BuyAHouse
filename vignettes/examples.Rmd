@@ -6,6 +6,8 @@ output: html_document
 ---
 
 ```{r}
+library(dplyr)
+library(gt)
 devtools::load_all()
 ```
 
@@ -24,5 +26,37 @@ monthly_cost(house_value = house_value,
              down_payment = 0.2,
              mortgage_rate = 5.75/100,
              morrgage_year = 30)
+```
+
+
+## Example 2
+```{r}
+rent <- seq(2300, 4000, by = 100)
+
+foo <- function(house_value, rent){
+  ans <- monthly_cost(house_value = house_value, 
+                      property_tax = 2.5/100, 
+                      annual_other_tax = 6000, 
+                      monthly_hoa_fee = 250, 
+                      monthly_home_insurance = 150, 
+                      monthly_utility_fee = 300, 
+                      closing_fee = house_value * 0.07,
+                      year = 10, 
+                      saving_rate = 0.03, 
+                      down_payment = 0.2,
+                      mortgage_rate = 5.75/100,
+                      morrgage_year = 30)
+  return(ans - rent)
+}
+
+ans <- lapply(rent, 
+              function(x){return(uniroot(foo, rent = x, interval = c(1e5, 1e6))$root)})
+
+do.call(rbind, ans) %>% 
+  as.data.frame() %>% 
+  mutate(rent = rent) %>% 
+  rename(`house value` = V1) %>% 
+  select(`house value`, rent) %>% 
+  gt()
 ```
 
