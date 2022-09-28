@@ -79,23 +79,10 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## </span></span>
-<span><span class="co">## Attaching package: 'dplyr'</span></span></code></pre>
-<pre><code><span><span class="co">## The following objects are masked from 'package:stats':</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">##     filter, lag</span></span></code></pre>
-<pre><code><span><span class="co">## The following objects are masked from 'package:base':</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">##     intersect, setdiff, setequal, union</span></span></code></pre>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com/" class="external-link">gt</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/LittleBeannie/BuyAHouse" class="external-link">BuyAHouse</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="example-1">Example 1<a class="anchor" aria-label="anchor" href="#example-1"></a>
 </h2>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">house_value</span> <span class="op">&lt;-</span> <span class="fl">36</span> <span class="op">*</span> <span class="fl">1e4</span></span>
 <span><span class="fu"><a href="../reference/monthly_cost.html">monthly_cost</a></span><span class="op">(</span>house_value <span class="op">=</span> <span class="va">house_value</span>, </span>
 <span>             property_tax <span class="op">=</span> <span class="fl">2.5</span><span class="op">/</span><span class="fl">100</span>, </span>
@@ -114,7 +101,7 @@
 <div class="section level2">
 <h2 id="example-2">Example 2<a class="anchor" aria-label="anchor" href="#example-2"></a>
 </h2>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">2300</span>, <span class="fl">4000</span>, by <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">foo</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">house_value</span>, <span class="va">rent</span><span class="op">)</span><span class="op">{</span></span>
@@ -136,18 +123,21 @@
 <span><span class="va">ans</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">rent</span>, </span>
 <span>              <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/uniroot.html" class="external-link">uniroot</a></span><span class="op">(</span><span class="va">foo</span>, rent <span class="op">=</span> <span class="va">x</span>, interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e5</span>, <span class="fl">1e6</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">root</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="va">ans</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>rent <span class="op">=</span> <span class="va">rent</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>`house value` <span class="op">=</span> <span class="va">V1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">`house value`</span>, <span class="va">rent</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div id="nvimbprztv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<span><span class="va">ans</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="va">ans</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>rent <span class="op">=</span> <span class="va">rent</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">rename</span><span class="op">(</span>`house value` <span class="op">=</span> <span class="va">V1</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="va">`house value`</span>, <span class="va">rent</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">ans</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">gt</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">tab_header</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"The equivlance between renting and owning"</span><span class="op">)</span></span></code></pre></div>
+<div id="iopiyofyeq" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#nvimbprztv .gt_table {
+#iopiyofyeq .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -172,7 +162,7 @@
   border-left-color: #D3D3D3;
 }
 
-#nvimbprztv .gt_heading {
+#iopiyofyeq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -184,7 +174,7 @@
   border-right-color: #D3D3D3;
 }
 
-#nvimbprztv .gt_title {
+#iopiyofyeq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -196,7 +186,7 @@
   border-bottom-width: 0;
 }
 
-#nvimbprztv .gt_subtitle {
+#iopiyofyeq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -208,13 +198,13 @@
   border-top-width: 0;
 }
 
-#nvimbprztv .gt_bottom_border {
+#iopiyofyeq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#nvimbprztv .gt_col_headings {
+#iopiyofyeq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -229,7 +219,7 @@
   border-right-color: #D3D3D3;
 }
 
-#nvimbprztv .gt_col_heading {
+#iopiyofyeq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -249,7 +239,7 @@
   overflow-x: hidden;
 }
 
-#nvimbprztv .gt_column_spanner_outer {
+#iopiyofyeq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -261,15 +251,15 @@
   padding-right: 4px;
 }
 
-#nvimbprztv .gt_column_spanner_outer:first-child {
+#iopiyofyeq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#nvimbprztv .gt_column_spanner_outer:last-child {
+#iopiyofyeq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#nvimbprztv .gt_column_spanner {
+#iopiyofyeq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -281,7 +271,7 @@
   width: 100%;
 }
 
-#nvimbprztv .gt_group_heading {
+#iopiyofyeq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -306,7 +296,7 @@
   vertical-align: middle;
 }
 
-#nvimbprztv .gt_empty_group_heading {
+#iopiyofyeq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -321,15 +311,15 @@
   vertical-align: middle;
 }
 
-#nvimbprztv .gt_from_md > :first-child {
+#iopiyofyeq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#nvimbprztv .gt_from_md > :last-child {
+#iopiyofyeq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#nvimbprztv .gt_row {
+#iopiyofyeq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -348,7 +338,7 @@
   overflow-x: hidden;
 }
 
-#nvimbprztv .gt_stub {
+#iopiyofyeq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -361,7 +351,7 @@
   padding-right: 5px;
 }
 
-#nvimbprztv .gt_stub_row_group {
+#iopiyofyeq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -375,11 +365,11 @@
   vertical-align: top;
 }
 
-#nvimbprztv .gt_row_group_first td {
+#iopiyofyeq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#nvimbprztv .gt_summary_row {
+#iopiyofyeq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -389,16 +379,16 @@
   padding-right: 5px;
 }
 
-#nvimbprztv .gt_first_summary_row {
+#iopiyofyeq .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#nvimbprztv .gt_first_summary_row.thick {
+#iopiyofyeq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#nvimbprztv .gt_last_summary_row {
+#iopiyofyeq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -408,7 +398,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#nvimbprztv .gt_grand_summary_row {
+#iopiyofyeq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -418,7 +408,7 @@
   padding-right: 5px;
 }
 
-#nvimbprztv .gt_first_grand_summary_row {
+#iopiyofyeq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -428,11 +418,11 @@
   border-top-color: #D3D3D3;
 }
 
-#nvimbprztv .gt_striped {
+#iopiyofyeq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#nvimbprztv .gt_table_body {
+#iopiyofyeq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -441,7 +431,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#nvimbprztv .gt_footnotes {
+#iopiyofyeq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -455,7 +445,7 @@
   border-right-color: #D3D3D3;
 }
 
-#nvimbprztv .gt_footnote {
+#iopiyofyeq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -464,7 +454,7 @@
   padding-right: 5px;
 }
 
-#nvimbprztv .gt_sourcenotes {
+#iopiyofyeq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -478,7 +468,7 @@
   border-right-color: #D3D3D3;
 }
 
-#nvimbprztv .gt_sourcenote {
+#iopiyofyeq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -486,68 +476,71 @@
   padding-right: 5px;
 }
 
-#nvimbprztv .gt_left {
+#iopiyofyeq .gt_left {
   text-align: left;
 }
 
-#nvimbprztv .gt_center {
+#iopiyofyeq .gt_center {
   text-align: center;
 }
 
-#nvimbprztv .gt_right {
+#iopiyofyeq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#nvimbprztv .gt_font_normal {
+#iopiyofyeq .gt_font_normal {
   font-weight: normal;
 }
 
-#nvimbprztv .gt_font_bold {
+#iopiyofyeq .gt_font_bold {
   font-weight: bold;
 }
 
-#nvimbprztv .gt_font_italic {
+#iopiyofyeq .gt_font_italic {
   font-style: italic;
 }
 
-#nvimbprztv .gt_super {
+#iopiyofyeq .gt_super {
   font-size: 65%;
 }
 
-#nvimbprztv .gt_footnote_marks {
+#iopiyofyeq .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#nvimbprztv .gt_asterisk {
+#iopiyofyeq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#nvimbprztv .gt_indent_1 {
+#iopiyofyeq .gt_indent_1 {
   text-indent: 5px;
 }
 
-#nvimbprztv .gt_indent_2 {
+#iopiyofyeq .gt_indent_2 {
   text-indent: 10px;
 }
 
-#nvimbprztv .gt_indent_3 {
+#iopiyofyeq .gt_indent_3 {
   text-indent: 15px;
 }
 
-#nvimbprztv .gt_indent_4 {
+#iopiyofyeq .gt_indent_4 {
   text-indent: 20px;
 }
 
-#nvimbprztv .gt_indent_5 {
+#iopiyofyeq .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
 <table class="table gt_table">
+<thead class="gt_header"><tr>
+<td colspan="2" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>The equivlance between renting and owning</td>
+    </tr></thead>
 <thead class="gt_col_headings"><tr>
 <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">house value</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">rent</th>
@@ -624,6 +617,554 @@
 <tr>
 <td class="gt_row gt_right">453558.4</td>
 <td class="gt_row gt_right">4000</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">rate1</span> <span class="op">&lt;-</span> <span class="fl">5</span><span class="op">/</span><span class="fl">100</span><span class="op">/</span><span class="fl">12</span></span>
+<span><span class="va">rate2</span> <span class="op">&lt;-</span> <span class="fl">8</span><span class="op">/</span><span class="fl">100</span><span class="op">/</span><span class="fl">12</span></span>
+<span><span class="va">house_value</span> <span class="op">&lt;-</span> <span class="va">ans</span><span class="op">$</span><span class="va">`house value`</span></span>
+<span></span>
+<span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">house_value</span>, </span>
+<span>              <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
+<span>                <span class="va">a1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/repayment.html">repayment</a></span><span class="op">(</span><span class="va">x</span> <span class="op">*</span> <span class="fl">0.8</span>, beta <span class="op">=</span> <span class="va">rate1</span>, m <span class="op">=</span> <span class="fl">30</span><span class="op">*</span><span class="fl">12</span><span class="op">)</span></span>
+<span>                <span class="va">a2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/repayment.html">repayment</a></span><span class="op">(</span><span class="va">x</span> <span class="op">*</span> <span class="fl">0.8</span>, beta <span class="op">=</span> <span class="va">rate2</span>, m <span class="op">=</span> <span class="fl">30</span><span class="op">*</span><span class="fl">12</span><span class="op">)</span></span>
+<span>                <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">a1</span><span class="op">*</span><span class="fl">30</span><span class="op">*</span><span class="fl">12</span>, <span class="va">a2</span><span class="op">*</span><span class="fl">30</span><span class="op">*</span><span class="fl">12</span>, <span class="op">(</span><span class="va">a2</span> <span class="op">-</span> <span class="va">a1</span><span class="op">)</span><span class="op">*</span><span class="fl">30</span><span class="op">*</span><span class="fl">12</span><span class="op">)</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="va">out</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>`house value` <span class="op">=</span> <span class="va">house_value</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">rename</span><span class="op">(</span>`lower rate` <span class="op">=</span> <span class="va">V1</span>, </span>
+<span>         `high rate` <span class="op">=</span> <span class="va">V2</span>, </span>
+<span>         diff <span class="op">=</span> <span class="va">V3</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="va">`house value`</span>, <span class="va">`lower rate`</span>, <span class="va">`high rate`</span>, <span class="va">diff</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">gt</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">tab_header</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"The difference between lower/high rate"</span><span class="op">)</span></span></code></pre></div>
+<div id="cxpsdlmlxh" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#cxpsdlmlxh .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#cxpsdlmlxh .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#cxpsdlmlxh .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#cxpsdlmlxh .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#cxpsdlmlxh .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cxpsdlmlxh .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#cxpsdlmlxh .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#cxpsdlmlxh .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#cxpsdlmlxh .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#cxpsdlmlxh .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#cxpsdlmlxh .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#cxpsdlmlxh .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#cxpsdlmlxh .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#cxpsdlmlxh .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#cxpsdlmlxh .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#cxpsdlmlxh .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#cxpsdlmlxh .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cxpsdlmlxh .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#cxpsdlmlxh .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#cxpsdlmlxh .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cxpsdlmlxh .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#cxpsdlmlxh .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#cxpsdlmlxh .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cxpsdlmlxh .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cxpsdlmlxh .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#cxpsdlmlxh .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#cxpsdlmlxh .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cxpsdlmlxh .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#cxpsdlmlxh .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cxpsdlmlxh .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#cxpsdlmlxh .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cxpsdlmlxh .gt_left {
+  text-align: left;
+}
+
+#cxpsdlmlxh .gt_center {
+  text-align: center;
+}
+
+#cxpsdlmlxh .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#cxpsdlmlxh .gt_font_normal {
+  font-weight: normal;
+}
+
+#cxpsdlmlxh .gt_font_bold {
+  font-weight: bold;
+}
+
+#cxpsdlmlxh .gt_font_italic {
+  font-style: italic;
+}
+
+#cxpsdlmlxh .gt_super {
+  font-size: 65%;
+}
+
+#cxpsdlmlxh .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#cxpsdlmlxh .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#cxpsdlmlxh .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#cxpsdlmlxh .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#cxpsdlmlxh .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#cxpsdlmlxh .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#cxpsdlmlxh .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="table gt_table">
+<thead class="gt_header"><tr>
+<td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>The difference between lower/high rate</td>
+    </tr></thead>
+<thead class="gt_col_headings"><tr>
+<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">house value</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">lower rate</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">high rate</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">diff</th>
+    </tr></thead>
+<tbody class="gt_table_body">
+<tr>
+<td class="gt_row gt_right">219137.7</td>
+<td class="gt_row gt_right">338796.0</td>
+<td class="gt_row gt_right">463089.6</td>
+<td class="gt_row gt_right">124293.6</td>
+</tr>
+<tr>
+<td class="gt_row gt_right">232926.1</td>
+<td class="gt_row gt_right">360115.2</td>
+<td class="gt_row gt_right">492228.0</td>
+<td class="gt_row gt_right">132112.8</td>
+</tr>
+<tr>
+<td class="gt_row gt_right">246716.2</td>
+<td class="gt_row gt_right">381434.4</td>
+<td class="gt_row gt_right">521370.0</td>
+<td class="gt_row gt_right">139935.6</td>
+</tr>
+<tr>
+<td class="gt_row gt_right">260506.2</td>
+<td class="gt_row gt_right">402753.6</td>
+<td class="gt_row gt_right">550512.0</td>
+<td class="gt_row gt_right">147758.4</td>
+</tr>
+<tr>
+<td class="gt_row gt_right">274295.2</td>
+<td class="gt_row gt_right">424072.8</td>
+<td class="gt_row gt_right">579650.4</td>
+<td class="gt_row gt_right">155577.6</td>
+</tr>
+<tr>
+<td class="gt_row gt_right">288084.2</td>
+<td class="gt_row gt_right">445392.0</td>
+<td class="gt_row gt_right">608792.4</td>
+<td class="gt_row gt_right">163400.4</td>
+</tr>
+<tr>
+<td class="gt_row gt_right">301874.3</td>
+<td class="gt_row gt_right">466711.2</td>
+<td class="gt_row gt_right">637934.4</td>
+<td class="gt_row gt_right">171223.2</td>
+</tr>
+<tr>
+<td class="gt_row gt_right">315664.2</td>
+<td class="gt_row gt_right">488030.4</td>
+<td class="gt_row gt_right">667076.4</td>
+<td class="gt_row gt_right">179046.0</td>
+</tr>
+<tr>
+<td class="gt_row gt_right">329452.6</td>
+<td class="gt_row gt_right">509349.6</td>
+<td class="gt_row gt_right">696214.8</td>
+<td class="gt_row gt_right">186865.2</td>
+</tr>
+<tr>
+<td class="gt_row gt_right">343242.3</td>
+<td class="gt_row gt_right">530668.8</td>
+<td class="gt_row gt_right">725353.2</td>
+<td class="gt_row gt_right">194684.4</td>
+</tr>
+<tr>
+<td class="gt_row gt_right">357032.3</td>
+<td class="gt_row gt_right">551988.0</td>
+<td class="gt_row gt_right">754495.2</td>
+<td class="gt_row gt_right">202507.2</td>
+</tr>
+<tr>
+<td class="gt_row gt_right">370821.6</td>
+<td class="gt_row gt_right">573307.2</td>
+<td class="gt_row gt_right">783637.2</td>
+<td class="gt_row gt_right">210330.0</td>
+</tr>
+<tr>
+<td class="gt_row gt_right">384610.3</td>
+<td class="gt_row gt_right">594626.4</td>
+<td class="gt_row gt_right">812775.6</td>
+<td class="gt_row gt_right">218149.2</td>
+</tr>
+<tr>
+<td class="gt_row gt_right">398400.3</td>
+<td class="gt_row gt_right">615945.6</td>
+<td class="gt_row gt_right">841917.6</td>
+<td class="gt_row gt_right">225972.0</td>
+</tr>
+<tr>
+<td class="gt_row gt_right">412190.4</td>
+<td class="gt_row gt_right">637264.8</td>
+<td class="gt_row gt_right">871059.6</td>
+<td class="gt_row gt_right">233794.8</td>
+</tr>
+<tr>
+<td class="gt_row gt_right">425979.0</td>
+<td class="gt_row gt_right">658584.0</td>
+<td class="gt_row gt_right">900198.0</td>
+<td class="gt_row gt_right">241614.0</td>
+</tr>
+<tr>
+<td class="gt_row gt_right">439768.4</td>
+<td class="gt_row gt_right">679903.2</td>
+<td class="gt_row gt_right">929336.4</td>
+<td class="gt_row gt_right">249433.2</td>
+</tr>
+<tr>
+<td class="gt_row gt_right">453558.4</td>
+<td class="gt_row gt_right">701222.4</td>
+<td class="gt_row gt_right">958478.4</td>
+<td class="gt_row gt_right">257256.0</td>
 </tr>
 </tbody>
 </table>
