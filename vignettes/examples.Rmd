@@ -5,11 +5,12 @@ date: "9/11/2022"
 output: html_document
 ---
 
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(dplyr)
 library(gt)
 library(BuyAHouse)
 ```
+
 
 ## Example 1
 ```{r}
@@ -52,11 +53,40 @@ foo <- function(house_value, rent){
 ans <- lapply(rent, 
               function(x){return(uniroot(foo, rent = x, interval = c(1e5, 1e6))$root)})
 
-do.call(rbind, ans) %>% 
+ans <- do.call(rbind, ans) %>% 
   as.data.frame() %>% 
   mutate(rent = rent) %>% 
   rename(`house value` = V1) %>% 
-  select(`house value`, rent) %>% 
-  gt()
+  select(`house value`, rent) 
+
+ans %>% 
+  gt() %>% 
+  tab_header(title = "The equivlance between renting and owning")
+```
+
+
+  
+
+```{r}
+rate1 <- 5/100/12
+rate2 <- 8/100/12
+house_value <- ans$`house value`
+
+out <- lapply(house_value, 
+              function(x){
+                a1 <- repayment(x * 0.8, beta = rate1, m = 30*12)
+                a2 <- repayment(x * 0.8, beta = rate2, m = 30*12)
+                return(c(a1*30*12, a2*30*12, (a2 - a1)*30*12))})
+
+
+do.call(rbind, out) %>% 
+  as.data.frame() %>% 
+  mutate(`house value` = house_value) %>% 
+  rename(`lower rate` = V1, 
+         `high rate` = V2, 
+         diff = V3) %>% 
+  select(`house value`, `lower rate`, `high rate`, diff) %>% 
+  gt() %>% 
+  tab_header(title = "The difference between lower/high rate")
 ```
 
