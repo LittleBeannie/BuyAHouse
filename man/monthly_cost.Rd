@@ -6,14 +6,13 @@
 \usage{
 monthly_cost(
   house_value = 20 * 10000,
-  property_tax_rate = 1.54/100,
-  other_tax = 1/100,
+  house_assessed_value = 15 * 1e+06,
+  mil_rate = 2.5/100,
   one_time_fee = 1000,
-  annual_other_tax = 3000,
   monthly_hoa_fee = 150,
   monthly_home_insurance = 150,
   monthly_utility_fee = 300,
-  closing_fee,
+  closing_fee = 0,
   year = 5,
   saving_rate = 0.03,
   down_payment_rate = 0.2,
@@ -24,13 +23,11 @@ monthly_cost(
 \arguments{
 \item{house_value}{house value}
 
-\item{property_tax_rate}{annual property tax rate}
+\item{house_assessed_value}{house value to calculate the property tax}
 
-\item{other_tax}{annual other tax rate}
+\item{mil_rate}{annual property tax rate, which is the multiplier of the house_assessed_value to get the annual property tax}
 
-\item{one_time_fee}{one time fee, e.g., agent fee, points fee}
-
-\item{annual_other_tax}{other tex fee, e.g., school/county tax}
+\item{one_time_fee}{one time fee, e.g., points fee}
 
 \item{monthly_hoa_fee}{monthly HOA fee}
 

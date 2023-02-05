@@ -1,7 +1,7 @@
 ---
-title: "Examples"
+title: "Example 1"
 author: "LittleBeannie"
-date: "9/11/2022"
+date: "r Sys.Date()"
 output: html_document
 ---
 
@@ -12,81 +12,67 @@ library(BuyAHouse)
 ```
 
 
-## Example 1
+# Primary residency
+
 ```{r}
-house_value <- 36 * 1e4
-monthly_cost(house_value = house_value, 
-             property_tax = 2.5/100, 
-             annual_other_tax = 6000, 
-             monthly_hoa_fee = 200, 
-             monthly_home_insurance = 150, 
-             monthly_utility_fee = 300, 
+house_value <- 329900
+repayment(house_value * (1-0.36),               
+          5.9/100 / 12,     
+          30 * 12) 
+```
+
+
+```{r}
+monthly_cost(house_value = house_value,
+             house_assessed_value = 191380,
+             mil_rate = 2.469/100,
+             monthly_hoa_fee = 374, 
+             monthly_home_insurance = 115, 
+             monthly_utility_fee = 0, 
              closing_fee = house_value * 0.07,
-             year = 10, 
-             saving_rate = 0.03, 
-             down_payment = 0.2,
-             mortgage_rate = 5.75/100,
-             morrgage_year = 30)
+             one_time_fee = 0,
+             year = 5, 
+             saving_rate = 0.04, 
+             down_payment = 0.36,
+             mortgage_rate = 5/100,
+             morrgage_year = 15)
 ```
 
-
-## Example 2
+# Primary residency -> Sell in 5 years
 ```{r}
-rent <- seq(2300, 4000, by = 100)
+monthly_cost(house_value = house_value,
+             house_assessed_value = 191380,
+             mil_rate = 2.469/100,
+             monthly_hoa_fee = 374, 
+             monthly_home_insurance = 115, 
+             monthly_utility_fee = 0, 
+             closing_fee = house_value * (0.07 + 0.12),   # two closing fee when buy and sell
+             one_time_fee = 0,
+             year = 5, 
+             saving_rate = 0.04, 
+             down_payment = 0.36,
+             mortgage_rate = 5/100,
+             morrgage_year = 15,
+             annual_increase_rate = 3/100)
 
-foo <- function(house_value, rent){
-  ans <- monthly_cost(house_value = house_value, 
-                      property_tax = 2.5/100, 
-                      annual_other_tax = 6000, 
-                      monthly_hoa_fee = 250, 
-                      monthly_home_insurance = 150, 
-                      monthly_utility_fee = 300, 
-                      closing_fee = house_value * 0.07,
-                      year = 10, 
-                      saving_rate = 0.03, 
-                      down_payment = 0.2,
-                      mortgage_rate = 5.75/100,
-                      morrgage_year = 30)
-  return(ans - rent)
-}
-
-ans <- lapply(rent, 
-              function(x){return(uniroot(foo, rent = x, interval = c(1e5, 1e6))$root)})
-
-ans <- do.call(rbind, ans) %>% 
-  as.data.frame() %>% 
-  mutate(rent = rent) %>% 
-  rename(`house value` = V1) %>% 
-  select(`house value`, rent) 
-
-ans %>% 
-  gt() %>% 
-  tab_header(title = "The equivlance between renting and owning")
 ```
 
-
-  
+# Primary residency -> Lease
 
 ```{r}
-rate1 <- 5/100/12
-rate2 <- 8/100/12
-house_value <- ans$`house value`
+monthly_cost(house_value = house_value,
+             house_assessed_value = 191380,
+             mil_rate = 2.469/100,
+             monthly_hoa_fee = 374, 
+             monthly_home_insurance = 115, 
+             monthly_utility_fee = 0, 
+             closing_fee = house_value * (0.07),
+             one_time_fee = 0,
+             year = 5, 
+             saving_rate = 0.04, 
+             down_payment = 0.36,
+             mortgage_rate = 5/100,
+             morrgage_year = 15,
+             annual_increase_rate = 0/100)
 
-out <- lapply(house_value, 
-              function(x){
-                a1 <- repayment(x * 0.8, beta = rate1, m = 30*12)
-                a2 <- repayment(x * 0.8, beta = rate2, m = 30*12)
-                return(c(a1*30*12, a2*30*12, (a2 - a1)*30*12))})
-
-
-do.call(rbind, out) %>% 
-  as.data.frame() %>% 
-  mutate(`house value` = house_value) %>% 
-  rename(`lower rate` = V1, 
-         `high rate` = V2, 
-         diff = V3) %>% 
-  select(`house value`, `lower rate`, `high rate`, diff) %>% 
-  gt() %>% 
-  tab_header(title = "The difference between lower/high rate")
 ```
-
