@@ -3,12 +3,12 @@ template:
   bootstrap: 5
   bslib:
     primary: '#72A0C1'
-    navbar-light-brand-color: '#fff'
-    navbar-light-brand-hover-color: '#fff'
-    navbar-light-color: '#fff'
-    navbar-light-hover-color: '#fff'
-    navbar-light-active-color: '#fff'
-    dropdown-link-hover-color: '#fff'
+    navbar-light-brand-color: '#386ca0'
+    navbar-light-brand-hover-color: '#386ca0'
+    navbar-light-color: '#386ca0'
+    navbar-light-hover-color: '#386ca0'
+    navbar-light-active-color: '#386ca0'
+    dropdown-link-hover-color: '#386ca0'
     dropdown-link-hover-bg: '#72A0C1'
 
 footer:
