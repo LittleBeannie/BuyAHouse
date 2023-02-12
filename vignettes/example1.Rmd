@@ -1,6 +1,5 @@
 ---
-title: "Example 1"
-author: "LittleBeannie"
+title: "Shall I sell it or rent it after couple of years?"
 date: "`r Sys.Date()`"
 output: html_document
 ---
@@ -38,7 +37,7 @@ monthly_cost(house_value = house_value,
              morrgage_year = 15)
 ```
 
-# Primary residency -> Sell in 5 years
+# Primary residency -> Sell after 5 years
 ```{r}
 monthly_cost(house_value = house_value,
              house_assessed_value = 191380,
@@ -57,7 +56,7 @@ monthly_cost(house_value = house_value,
 
 ```
 
-# Primary residency -> Lease
+# Primary residency -> Lease after 5 years
 
 ```{r}
 monthly_cost(house_value = house_value,
