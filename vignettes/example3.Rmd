@@ -33,7 +33,7 @@ But one point can reduce the rate more or less than that. There’s no set amoun
 house_value <- 125 * 1e4
 down_payment_percent <- 0.2
 mortgage_rate <- 4.5/100
-mortage_year <- 7
+mortage_year <- 15
 saving_rate <- 0.03
 ```
 
@@ -41,8 +41,8 @@ saving_rate <- 0.03
 ## Option 1: no points
 ```{r}
 a1 <- repayment(house_value * (1 - down_payment_percent),               
-                    beta = mortgage_rate / 12,     
-                    m = mortage_year * 12)
+                beta = mortgage_rate / 12,     
+                m = mortage_year * 12)
 
 a1 * (1 - 1/(1 + saving_rate/12)^(mortage_year * 12)) / (1 - 1/(1 + saving_rate/12))
 ```
@@ -50,11 +50,24 @@ a1 * (1 - 1/(1 + saving_rate/12)^(mortage_year * 12)) / (1 - 1/(1 + saving_rate/
 ## Option 2: with points
 ```{r}
 # number of points
-x <-  4
+x <- 4
+```
 
-a2_a <- house_value * (1 - down_payment_percent) * 0.01 * x
+Denote the down payment percentage with points is $y$, considing the points fee can be part of the down payment. To equal the down payment with/without points, we have
+$$
+  \text{house value} \times (1-y) \times 0.01 \times x + \text{house value} \times y = \text{house value} \times \text{down payment percent}.
+$$
+So the value of $y$ is
+```{r}
+y <- (0.01*x - down_payment_percent) / (0.01 * x - 1)
+print(paste0("The downpayment with points (considing the points fee can be part of the down payment) is ", y %>% round(4)))
+```
 
-a2_b <- repayment(house_value * (1 - down_payment_percent),               
+
+```{r}
+a2_a <- house_value * (1 - y) * 0.01 * x
+
+a2_b <- repayment(house_value * (1 - y),               
                       beta = (mortgage_rate - 0.25/100 * x) / 12,     
                       m = mortage_year * 12) 
 a2_b <- a2_b * (1 - 1/(1 + saving_rate/12)^(mortage_year * 12)) / (1 - 1/(1 + saving_rate/12))
@@ -73,8 +86,10 @@ foo <- function(x){
   ans1 <- a1 * (1 - 1/(1 + saving_rate/12)^(mortage_year * 12)) / (1 - 1/(1 + saving_rate/12))
   
   # points
-  a2_a <- house_value * (1 - down_payment_percent) * 0.01 * x
-  a2_b <- repayment(house_value * (1 - down_payment_percent),               
+  y <- (0.01*x - down_payment_percent) / (0.01 * x - 1)
+  
+  a2_a <- house_value * (1 - y) * 0.01 * x
+  a2_b <- repayment(house_value * (1 - y),               
                     beta = (mortgage_rate - 0.25/100 * x) / 12,     
                     m = mortage_year * 12) 
   a2_b <- a2_b * (1 - 1/(1 + saving_rate/12)^(mortage_year * 12)) / (1 - 1/(1 + saving_rate/12))
