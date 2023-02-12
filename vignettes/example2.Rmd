@@ -1,7 +1,6 @@
 ---
-title: "Example 2"
-author: "LittleBeannie"
-date: "r Sys.Date()"
+title: "Shall I buy or rent?"
+date: "`r Sys.Date()`"
 output: html_document
 ---
 
